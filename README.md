@@ -21,7 +21,7 @@ Unlock GitHub achievements by automating legitimate actions via the official API
 ## 🛠️ Arquitectura y Tecnologías
 Este proyecto es una extensión de Chrome moderna diseñada para la eficiencia:
 
-![Sprint Architecture](assets/sprint.png)
+
 
 - **Manifest V3**: Estándar de seguridad y rendimiento para extensiones modernas.
 - **GitHub REST API & GraphQL**: Comunicación directa y eficiente con la plataforma.
