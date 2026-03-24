@@ -13,7 +13,7 @@ Unlock GitHub achievements by automating legitimate actions via the official API
 - [🗺️ Roadmap & Logros](#%EF%B8%8F-roadmap--logros)
 
 ## ✨ Características Principales
-- **Automatización de Logros**: Consigue medallas como *Quickdraw*, *YOLO*, *Pull Shark*, *Galaxy Brain* y más.
+- **Automatización de Logros**: Consigue medallas como *Quickdraw*, *YOLO*, *Pull Shark*, *Pair Extraordinaire*, *Galaxy Brain* y más.
 - **Gestión de Acciones**: Interfaz intuitiva para crear repositorios, issues, gists y PRs con un solo clic.
 - **Seguridad**: Almacenamiento local de tokens mediante Manifest V3 (seguro y moderno).
 - **Visualización**: Seguimiento en tiempo real de tus logros actuales directamente desde el popup.
@@ -66,12 +66,21 @@ Si GitHub te parece un laberinto, simplemente sigue estos **5 pasos**:
 > [!TIP]
 > **Token Clásico vs Fine-grained**: Recomendamos usar el **Clásico** (el link de arriba) porque es mucho más rápido de configurar y garantiza que todas las funciones de la extensión (como crear Gists o Issues) funcionen a la primera.
 
-## 🗺️ Roadmap & Logros
-- [x] Implementación core de la API de GitHub.
-- [x] Soporte para medallas Quickdraw, YOLO y Pull Shark.
+## 🗺️ Plan de Desarrollo (Sprints)
+Para asegurar el éxito del proyecto, seguimos una metodología ágil:
+
+![Sprint Roadmap](assets/sprint.png)
+
+### Sprint 1: Cimientos y Automatización Core (Completado)
+- [x] **Configuración API**: Estructura base para llamadas a GitHub.
+- [x] **Seguridad de Tokens**: Cifrado y almacenamiento local en Manifest V3.
+- [x] **Lógica de Logros**: Implementación para Quickdraw, YOLO, Pull Shark y **Pair Extra**.
+
+## 🗺️ Roadmap & Futuro
 - [ ] Soporte para medallas de Discussions (Galaxy Brain).
 - [ ] Soporte para Arctic Code Vault (automatizado).
 - [ ] Modo oscuro automático según el sistema.
+- [ ] Panel de estadísticas detalladas de actividad.
 
 ---
 Desarrollado para automatizar con responsabilidad. ¡A por todos los logros! 🏆

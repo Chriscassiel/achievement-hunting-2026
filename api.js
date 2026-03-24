@@ -106,11 +106,11 @@ export async function createIssue(owner, repo, title, body = '') {
     });
 }
 
-export async function createCommit(owner, repo, path, message, content) {
+export async function createCommit(owner, repo, path, message, content, branch = 'main') {
     // 1. Get current file sha if exists
     let sha;
     try {
-        const fileData = await ghFetch(`/repos/${owner}/${repo}/contents/${path}`);
+        const fileData = await ghFetch(`/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
         sha = fileData.sha;
     } catch (e) { /* New file */ }
 
@@ -119,7 +119,8 @@ export async function createCommit(owner, repo, path, message, content) {
         body: JSON.stringify({
             message,
             content: btoa(content), // Base64
-            sha
+            sha,
+            branch
         })
     });
 }
@@ -171,9 +172,9 @@ export async function closeIssue(owner, repo, issueNumber) {
 /**
  * Achievement Specific: Pair Extraordinaire (Co-authored PR)
  */
-export async function createCommitWithCoAuthor(owner, repo, path, message, content, coAuthorEmail, coAuthorName) {
+export async function createCommitWithCoAuthor(owner, repo, path, message, content, coAuthorEmail, coAuthorName, branch = 'main') {
     const coAuthorLine = `\n\nCo-authored-by: ${coAuthorName} <${coAuthorEmail}>`;
-    return createCommit(owner, repo, path, message + coAuthorLine, content);
+    return createCommit(owner, repo, path, message + coAuthorLine, content, branch);
 }
 
 /**
@@ -210,4 +211,24 @@ export async function markDiscussionAsAnswer(commentId) {
         body: JSON.stringify({ query, variables: { id: commentId } })
     });
     return response.json();
+}
+
+/**
+ * Git Database: Get reference (e.g. heads/main)
+ */
+export async function getRef(owner, repo, ref) {
+    return ghFetch(`/repos/${owner}/${repo}/git/ref/${ref}`);
+}
+
+/**
+ * Git Database: Create a new branch
+ */
+export async function createBranch(owner, repo, branchName, sourceSha) {
+    return ghFetch(`/repos/${owner}/${repo}/git/refs`, {
+        method: 'POST',
+        body: JSON.stringify({
+            ref: `refs/heads/${branchName}`,
+            sha: sourceSha
+        })
+    });
 }

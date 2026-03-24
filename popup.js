@@ -155,24 +155,44 @@ DOM.actionButtons.forEach(btn => {
 
                 case 'yolo':
                     setStatus('Executing YOLO: Merging without review...');
+                    const yoloRepo = `yolo-automa-${Date.now()}`;
+                    await api.createRepo(yoloRepo, true);
+                    const yoloMain = await api.getRef(user.login, yoloRepo, 'heads/main');
+                    await api.createBranch(user.login, yoloRepo, 'yolo-fix', yoloMain.object.sha);
+                    await api.createCommit(user.login, yoloRepo, 'yolo.txt', 'feat: yolo', 'yolo content', 'yolo-fix');
+                    const yoloPr = await api.createPullRequest(user.login, yoloRepo, 'YOLO PR', 'yolo-fix', 'main');
+                    await api.mergePullRequest(user.login, yoloRepo, yoloPr.number);
                     setStatus('Success! PR merged (YOLO mode).');
                     break;
                 
                 case 'pullShark':
-                    setStatus('Executing Pull Shark: Creating & Merging 2 PRs...');
+                    setStatus('Executing Pull Shark: Creating 2 PRs...');
                     const psRepo = `pullshark-automa-${Date.now()}`;
                     await api.createRepo(psRepo, true);
+                    const psMain = await api.getRef(user.login, psRepo, 'heads/main');
                     
-                    // Create branch and PR 1
-                    await api.createCommit(user.login, psRepo, 'shark1.txt', 'feat: 1', 'v1');
-                    const pr1 = await api.createPullRequest(user.login, psRepo, 'Shark PR 1', 'main', 'main'); // This is a bit simplified, usually needs a branch
-                    // Note: GitHub API needs a head branch. Let's fix this logic properly.
-                    setStatus('Pull Shark initialized. Please merge 2 PRs in the new repo.');
+                    // PR 1
+                    await api.createBranch(user.login, psRepo, 'shark-1', psMain.object.sha);
+                    await api.createCommit(user.login, psRepo, 'shark1.txt', 'feat: shark 1', 'v1', 'shark-1');
+                    const pr1 = await api.createPullRequest(user.login, psRepo, 'Shark PR 1', 'shark-1', 'main');
+                    await api.mergePullRequest(user.login, psRepo, pr1.number);
+                    
+                    // PR 2
+                    await api.createBranch(user.login, psRepo, 'shark-2', psMain.object.sha);
+                    await api.createCommit(user.login, psRepo, 'shark2.txt', 'feat: shark 2', 'v2', 'shark-2');
+                    const pr2 = await api.createPullRequest(user.login, psRepo, 'Shark PR 2', 'shark-2', 'main');
+                    await api.mergePullRequest(user.login, psRepo, pr2.number);
+                    
+                    setStatus('Pull Shark complete! 2 PRs created and merged.');
                     break;
 
                 case 'heart':
-                    setStatus('Reacting with heart to first issue found...');
-                    // Logic to find an issue and react
+                    setStatus('Reacting with heart...');
+                    // Create a temporary repo and issue to react to safely
+                    const heartRepo = `heart-automa-${Date.now()}`;
+                    await api.createRepo(heartRepo, true);
+                    const heartIssue = await api.createIssue(user.login, heartRepo, 'React to this!');
+                    await api.createReaction(user.login, heartRepo, heartIssue.number, 'heart');
                     setStatus('Achievement: Heart on your sleeve facilitated!');
                     break;
                 
@@ -180,9 +200,28 @@ DOM.actionButtons.forEach(btn => {
                     setStatus('Galaxy Brain requires a Discussion Comment ID.');
                     const commentId = prompt('Enter a Discussion Comment ID to mark as answer:');
                     if (commentId) {
-                        await api.markDiscussionAsAnswer(commentId);
-                        setStatus('Galaxy Brain: Comment marked as answer!');
+                        try {
+                            await api.markDiscussionAsAnswer(commentId);
+                            setStatus('Galaxy Brain: Comment marked as answer!');
+                        } catch (e) {
+                            setStatus('Note: Requires a discussion repo with answers enabled.', true);
+                        }
                     }
+                    break;
+                
+                case 'pairExtraordinaire':
+                    setStatus('Executing Pair Extraordinaire: Co-authored PR...');
+                    const pairRepo = `pair-automa-${Date.now()}`;
+                    await api.createRepo(pairRepo, true);
+                    const pairMain = await api.getRef(user.login, pairRepo, 'heads/main');
+                    await api.createBranch(user.login, pairRepo, 'pair-fix', pairMain.object.sha);
+                    
+                    // Commit with co-author (using a generic co-author)
+                    await api.createCommitWithCoAuthor(user.login, pairRepo, 'pair.txt', 'feat: pair programming', 'Pair content', 'bot@antigravity.ai', 'Antigravity Bot', 'pair-fix');
+                    
+                    const pairPr = await api.createPullRequest(user.login, pairRepo, 'Pair Extraordinaire PR', 'pair-fix', 'main');
+                    await api.mergePullRequest(user.login, pairRepo, pairPr.number);
+                    setStatus('Pair Extraordinaire complete! PR with co-author merged.');
                     break;
 
                 default:
