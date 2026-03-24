@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub Achievement Automator",
+  "version": "1.0",
+  "description": "Unlock GitHub achievements by automating legitimate actions via the official API.",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://api.github.com/*",
+    "https://github.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  }
+}

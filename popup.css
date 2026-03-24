@@ -1,0 +1,261 @@
+:root {
+    --primary: #3498db;
+    --primary-hover: #2980b9;
+    --bg-dark: #0d1117;
+    --card-bg: rgba(33, 38, 45, 0.7);
+    --text-main: #c9d1d9;
+    --text-dim: #8b949e;
+    --border: #30363d;
+    --success: #238636;
+    --accent: #f78166;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 350px;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 20px;
+    min-height: 400px;
+    position: relative;
+}
+
+.view {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.subtitle {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+}
+
+/* Input Group */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="password"], input[type="text"] {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-main);
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+#auth-btn {
+    background-color: var(--success);
+    color: #fff;
+}
+
+#auth-btn:hover {
+    background-color: #2ea043;
+}
+
+.help-text {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Dashboard Header */
+.header-compact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#user-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+#logout-btn {
+    background: transparent;
+    color: var(--text-dim);
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+#logout-btn:hover {
+    color: var(--accent);
+}
+
+/* Sections */
+.section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Achievements Grid */
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+}
+
+.achievement-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+}
+
+.badge-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s;
+}
+
+.badge-icon:hover {
+    transform: scale(1.1);
+}
+
+.badge-name {
+    font-size: 10px;
+    color: var(--text-dim);
+}
+
+/* Actions Grid */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.action-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    text-align: left;
+}
+
+.action-btn:hover {
+    background: var(--border);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.action-btn .icon {
+    font-size: 16px;
+}
+
+/* Status Bar */
+.status-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--primary);
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 100;
+}
+
+.status-bar.error {
+    background: var(--accent);
+}
+
+.action-btn.special {
+    border-color: var(--accent);
+    background: rgba(247, 129, 102, 0.1);
+}
+
+.action-btn.special:hover {
+    background: rgba(247, 129, 102, 0.2);
+}
+
+.loading {
+    grid-column: span 4;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-dim);
+    font-style: italic;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Achievement Automator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login View -->
+        <div id="auth-view" class="view">
+            <div class="header">
+                <img src="assets/icons/icon-128.png" alt="Logo" class="logo">
+                <h1>GitHub Automator</h1>
+            </div>
+            <p class="subtitle">Enter your Personal Access Token to get started.</p>
+            <div class="input-group">
+                <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxx">
+                <button id="auth-btn">Authorize</button>
+            </div>
+            <p class="help-text">Requires 'repo', 'gist', 'workflow', and 'user' scopes.</p>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="view hidden">
+            <div class="header-compact">
+                <div class="user-info">
+                    <img id="user-avatar" src="" alt="Avatar">
+                    <span id="user-login">Username</span>
+                </div>
+                <button id="logout-btn">Logout</button>
+            </div>
+
+            <div class="section">
+                <h2>Achievements</h2>
+                <div id="achievements-list" class="grid-list">
+                    <!-- Achievements will be injected here -->
+                    <p class="loading">Loading achievements...</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Automated Actions</h2>
+                <div class="actions-grid">
+                    <button class="action-btn" data-action="createRepo">
+                        <span class="icon">📁</span> Create Repo
+                    </button>
+                    <button class="action-btn" data-action="createGist">
+                        <span class="icon">📝</span> Create Gist
+                    </button>
+                    <button class="action-btn" data-action="createIssue">
+                        <span class="icon">❗</span> Create Issue
+                    </button>
+                    <button class="action-btn" data-action="createCommit">
+                        <span class="icon">💾</span> New Commit
+                    </button>
+                    <button class="action-btn" data-action="createRelease">
+                        <span class="icon">🏷️</span> New Release
+                    </button>
+                    <button class="action-btn" data-action="createPR">
+                        <span class="icon">🔀</span> Create PR
+                    </button>
+                    <button class="action-btn special" data-action="quickdraw">
+                        <span class="icon">⚡</span> Quickdraw
+                    </button>
+                    <button class="action-btn special" data-action="yolo">
+                        <span class="icon">🤠</span> YOLO Merge
+                    </button>
+                    <button class="action-btn special" data-action="pullShark">
+                        <span class="icon">🦈</span> Pull Shark
+                    </button>
+                    <button class="action-btn special" data-action="heart">
+                        <span class="icon">❤️</span> React Heart
+                    </button>
+                    <button class="action-btn special" data-action="galaxyBrain">
+                        <span class="icon">🌌</span> Galaxy Brain
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="status-bar" class="status-bar hidden">
+            <span id="status-text">Processing...</span>
+        </div>
+    </div>
+    <script type="module" src="popup.js"></script>
+</body>
+</html>
